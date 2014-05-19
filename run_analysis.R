@@ -74,8 +74,8 @@ createTidyData <- function(fname) {
   tidy_data <- dcast(melted_data, SubjectID + ActivityName ~ variable, mean)
     
   # write the tidy data to file
-  write.table(tidy_data, fname)
+  write.table(tidy_data, fname, sep=";")
 }
 
 # run the function
-createTidyData("./tidyData.txt")
+createTidyData("./tidyData.csv")
