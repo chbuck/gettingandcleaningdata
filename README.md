@@ -1,5 +1,5 @@
 
-### Run the script
+## Readme
 
 There is only one script in the repository which will create the tidy data. The repository already contains the raw data. You have to do following steps to checkout the repository and run the script: 
 
