@@ -55,20 +55,17 @@ createTidyData <- function(fname) {
   # Args:
   #   fname: Name of the file the tidy data should be written to.
   
-  # load data
+  # read data (test and train)
   data <- rbind(readData("test"), readData("train"))
   
   # read activities file, which maps ActivityID's to an ActivityName
   activity_labels <- read.table("UCI HAR Dataset/activity_labels.txt", header=FALSE, as.is=TRUE, col.names=c("ActivityID", "ActivityName"))
-  activity_labels$ActivityName <- as.factor(activity_labels$ActivityName)
   
   # merge ActivityName into data
   merged_data <- merge(data, activity_labels, by='ActivityID', all.x=TRUE)
 
   # melt the data
-  id_vars = c("ActivityID", "ActivityName", "SubjectID")
-  measure_vars = setdiff(colnames(data), id_vars)
-  melted_data <- melt(merged_data, id=id_vars, measure.vars=measure_vars)
+  melted_data <- melt(merged_data, c("ActivityID", "ActivityName", "SubjectID"))
   
   # cast melted data back into data frame
   tidy_data <- dcast(melted_data, SubjectID + ActivityName ~ variable, mean)
